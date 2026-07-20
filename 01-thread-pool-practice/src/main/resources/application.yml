@@ -1,0 +1,16 @@
+# 应用配置
+server:
+  # 后端端口：8081（避免与 redis-stream-demo 的 8080 冲突）
+  port: 8081
+
+spring:
+  application:
+    name: thread-pool-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察线程池行为
+    com.example.threadpool: INFO
