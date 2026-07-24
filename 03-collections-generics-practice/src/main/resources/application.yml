@@ -1,0 +1,16 @@
+# 应用配置
+server:
+  # 后端端口：8083（01 用 8081，02 用 8082，本专题顺延）
+  port: 8083
+
+spring:
+  application:
+    name: collections-generics-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO
+    com.example.cg: INFO
