@@ -11,6 +11,7 @@
 | --- | --- | --- | --- | --- |
 | [01-thread-pool-practice](01-thread-pool-practice/) | Java 线程池实践：七大参数、四种拒绝策略、动态调参 | React 18 + Vite | 8081 | 5174 |
 | [02-juc-practice](02-juc-practice/) | Java 并发包（JUC）全场景：锁 / 原子类 / 并发容器 / 同步工具 / CompletableFuture / ThreadLocal / JMM | Vue 3 + Vite | 8082 | 5175 |
+| [03-collections-generics-practice](03-collections-generics-practice/) | Java 集合与泛型全场景：List / Set / Map / Queue / 工具类 / 泛型 / 综合实战 | Vue 3 + Vite | 8083 | 5176 |
 
 ## 通用启动方式
 
