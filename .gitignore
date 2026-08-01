@@ -1,9 +1,9 @@
 # Maven 构建产物
-target/
+**/target/
 
 # 前端依赖与构建产物
-web/node_modules/
-web/dist/
+**/node_modules/
+**/dist/
 
 # IDE
 .idea/
@@ -14,10 +14,8 @@ web/dist/
 .DS_Store
 Thumbs.db
 
-# 日志
+# 日志与编译
 *.log
-
-# Java
 *.class
 
 # 包文件
