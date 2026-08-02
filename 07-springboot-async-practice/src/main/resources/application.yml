@@ -1,0 +1,14 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: springboot-async-practice
+  banner:
+    charset: UTF-8
+
+logging:
+  level:
+    com.example.async: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n"
