@@ -1,0 +1,58 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: springboot-core-practice
+  profiles:
+    active: dev
+  cache:
+    type: caffeine
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+app:
+  name: sbcore-default
+  version: 1.0.0
+  user:
+    user-name: admin
+    age: 18
+    email: admin@example.com
+
+custom:
+  app-id: SB-CORE-001
+  thread-pool-size: 16
+  enabled: true
+
+feature:
+  demo: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+
+info:
+  app:
+    name: springboot-core-practice
+    description: Spring Boot 核心能力实战
+    version: 1.0.0
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

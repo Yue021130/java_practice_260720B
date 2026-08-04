@@ -1,0 +1,6 @@
+# 演示 Spring Boot 自动装配读取机制
+# 实际本项目的自动配置类无需注册，仅用于 AutoConfigService 扫描计数演示
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.sbcore.config.CacheConfig,\
+com.example.sbcore.config.RedisConfig,\
+com.example.sbcore.config.WebConfig

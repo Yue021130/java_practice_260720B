@@ -1,0 +1,16 @@
+app:
+  name: sbcore-dev
+  version: 1.0.0-dev
+  user:
+    user-name: dev-user
+    age: 20
+    email: dev@example.com
+
+custom:
+  app-id: SB-CORE-DEV
+  thread-pool-size: 8
+  enabled: true
+
+info:
+  app:
+    profile: dev
