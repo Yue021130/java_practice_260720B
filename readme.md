@@ -13,6 +13,12 @@
 | [02-juc-practice](02-juc-practice/) | Java 并发包（JUC）全场景：锁 / 原子类 / 并发容器 / 同步工具 / CompletableFuture / ThreadLocal / JMM | Vue 3 + Vite | 8082 | 5175 |
 | [03-collections-generics-practice](03-collections-generics-practice/) | Java 集合与泛型全场景：List / Set / Map / Queue / 工具类 / 泛型 / 综合实战 | Vue 3 + Vite | 8083 | 5176 |
 | [04-mybatis-plus-practice](04-mybatis-plus-practice/) | Spring Boot + MyBatis-Plus 全场景：实体注解 / BaseMapper / IService / 条件构造器 / 分页 / 逻辑删除 / 乐观锁 / 批量操作 | Vue 3 + Vite | 8084 | 5177 |
+| [05-threadlocal-practice](05-threadlocal-practice/) | ThreadLocal 全场景：线程隔离 / Web 上下文 / MDC / 线程池串号 / TTL 透传 / 内存泄漏 | Vue 3 + Vite | 8085 | 5178 |
+| [06-stream-lambda-practice](06-stream-lambda-practice/) | Stream / Lambda / Optional 全场景：函数式接口 / Collectors / 基本类型流 / 并行流正确使用与踩坑 | Vue 3 + Vite | 8086 | 5179 |
+| [07-springboot-async-practice](07-springboot-async-practice/) | Spring Boot 异步任务与线程池：@Async / ThreadPoolTaskExecutor / 拒绝策略 / 上下文透传 / 批量聚合 / 优雅关闭 | Vue 3 + Vite | 8087 | 5180 |
+| [09-exception-practice](09-exception-practice/) | Java 异常体系全场景：分类 / try-catch-finally / try-with-resources / 常见异常 / Spring 全局异常 / 并发异常 / 最佳实践 | Vue 3 + Vite | 8089 | 5182 |
+| [10-sa-token-practice](10-sa-token-practice/) | Sa-Token 全功能实践：登录认证 / 权限鉴权 / Session / 踢人封禁 / SSO / OAuth2.0 / Redis / JWT / API 签名 / 网关 / RPC / Quick 登录 | Vue 3 + Vite | 8090 | 5183 |
+| [11-thread-pool-advanced-practice](11-thread-pool-advanced-practice/) | Java 线程池深度实践：源码流程 / 七大参数 / 7 种阻塞队列 / 4 种拒绝策略 / Executors 工厂风险 / 生命周期 | Vue 3 + Vite | 8091 | 5184 |
 
 ## 通用启动方式
 
