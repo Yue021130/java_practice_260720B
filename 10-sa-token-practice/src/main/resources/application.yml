@@ -1,0 +1,50 @@
+# 应用配置
+server:
+  port: 8090
+
+spring:
+  application:
+    name: sa-token-practice
+  banner:
+    charset: UTF-8
+
+  # Redis 配置（默认注释掉，教学项目先以内存模式运行；如需 Redis 持久化，取消下面注释并启动本地 Redis）
+  # redis:
+  #   host: 127.0.0.1
+  #   port: 6379
+  #   database: 0
+  #   password:
+  #   timeout: 10s
+  #   lettuce:
+  #     pool:
+  #       max-active: 8
+  #       max-idle: 8
+  #       min-idle: 0
+
+# Sa-Token 配置
+sa-token:
+  # Token 名称（同时也是 Cookie 名称）
+  token-name: satoken
+  # Token 有效期，单位 s；默认 30 天，-1 代表永不过期
+  timeout: 2592000
+  # Token 临时有效期（指定时间内无操作就视为 token 过期），单位 s
+  activity-timeout: -1
+  # 是否允许同一账号并发登录（为 true 时允许一起登录，为 false 时新登录挤掉旧登录）
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个 token（为 true 时所有登录共用一个 token，为 false 时每次登录新建一个 token）
+  is-share: true
+  # 同一账号最大登录数量，-1 代表不限（只有在 is-concurrent=true 时此配置才有效）
+  max-login-count: 10
+  # 是否尝试从请求体里读取 token
+  is-read-body: true
+  # 是否尝试从 header 里读取 token
+  is-read-header: true
+  # 是否尝试从 cookie 里读取 token
+  is-read-cookie: true
+  # token 风格
+  token-style: uuid-64
+
+logging:
+  level:
+    com.example.satoken: INFO
+    cn.dev33.satoken: INFO
