@@ -1,0 +1,53 @@
+# 应用配置
+server:
+  # 后端端口：8092（前序模块已用到 8091，本专题顺延）
+  port: 8092
+
+spring:
+  application:
+    name: springboot-mail-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+  # Thymeleaf 模板：本专题用于渲染邮件正文，不用于网页渲染
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+
+# 邮件实践配置（自定义前缀，避免与 spring.mail 自动配置冲突）
+mail:
+  practice:
+    # 发送模式：
+    #   simulate —— 模拟发送：只构造 MimeMessage 并记录内容，不真正连接 SMTP，开箱即用（默认）
+    #   real     —— 真实发送：按下面 host/port/username/password 连接 SMTP 服务器
+    mode: simulate
+    # 默认发件人（real 模式下部分服务器要求与登录账号一致，如 QQ 邮箱）
+    from: zsx-mail-practice@example.com
+    # 真实发送时的 SMTP 服务器配置（以 QQ 邮箱为例）
+    host: smtp.qq.com
+    port: 465
+    protocol: smtp
+    username: your-qq-email@qq.com
+    password: your-smtp-auth-code
+    # QQ 邮箱 465 用 SSL，163 邮箱 25 用 STARTTLS
+    ssl: false
+    starttls: false
+    # 连接 / 读取 / 写入超时（毫秒）
+    connect-timeout-ms: 10000
+    read-timeout-ms: 10000
+    write-timeout-ms: 10000
+    # 重试策略：最大重试次数与基础退避毫秒
+    max-retries: 3
+    retry-base-delay-ms: 500
+    # 演示开关（默认关闭）：true 时每分钟发一封 @Scheduled 心跳邮件
+    schedule-demo: false
+    # 演示开关（默认关闭）：true 时启动即注册一个每 30 秒触发的 Quartz 任务
+    quartz-demo: false
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察发送/模拟过程
+    com.example.mail: INFO
