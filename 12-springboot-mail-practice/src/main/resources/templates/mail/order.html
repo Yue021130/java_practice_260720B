@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>订单通知</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f7fa;font-family:-apple-system,'Segoe UI',Arial,sans-serif;">
+<div style="max-width:600px;margin:24px auto;background:#ffffff;border-radius:8px;overflow:hidden;">
+    <div style="background:#2563eb;padding:24px;color:#ffffff;">
+        <h2 style="margin:0;">订单通知</h2>
+    </div>
+    <div style="padding:24px;color:#2c3e50;line-height:1.8;">
+        <p>尊敬的 <b th:text="${customer}">张三</b>，您的订单已生成：</p>
+        <table style="width:100%;border-collapse:collapse;margin:16px 0;">
+            <tr>
+                <td style="padding:8px;border:1px solid #e2e8f0;">订单编号</td>
+                <td style="padding:8px;border:1px solid #e2e8f0;" th:text="${orderNo}">202608060001</td>
+            </tr>
+            <tr>
+                <td style="padding:8px;border:1px solid #e2e8f0;">订单金额</td>
+                <td style="padding:8px;border:1px solid #e2e8f0;color:#dc2626;font-weight:bold;"
+                    th:text="${total}">¥1,288.50</td>
+            </tr>
+        </table>
+        <h4 style="margin:16px 0 8px;">商品明细</h4>
+        <table style="width:100%;border-collapse:collapse;margin:0 0 16px;">
+            <tr>
+                <td style="padding:8px;border:1px solid #e2e8f0;background:#f8fafc;font-weight:bold;">商品</td>
+            </tr>
+            <tr th:each="item : ${items}">
+                <td style="padding:8px;border:1px solid #e2e8f0;" th:text="${item}">Java 课程 × 1</td>
+            </tr>
+        </table>
+        <p style="font-size:13px;color:#64748b;">我们会尽快为您发货，感谢您的信任与支持！</p>
+    </div>
+    <div style="background:#f8fafc;padding:16px 24px;font-size:12px;color:#94a3b8;text-align:center;">
+        本邮件由 Java高级知识 自动发送，请勿直接回复。
+    </div>
+</div>
+</body>
+</html>

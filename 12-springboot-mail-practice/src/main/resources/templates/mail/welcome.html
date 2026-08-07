@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>欢迎加入</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f7fa;font-family:-apple-system,'Segoe UI',Arial,sans-serif;">
+<div style="max-width:600px;margin:24px auto;background:#ffffff;border-radius:8px;overflow:hidden;">
+    <div style="background:#2563eb;padding:24px;color:#ffffff;">
+        <h2 style="margin:0;" th:text="'欢迎加入 ' + ${platform}">欢迎加入 Java高级知识</h2>
+    </div>
+    <div style="padding:24px;color:#2c3e50;line-height:1.8;">
+        <p>Hi <b th:text="${username}">张三</b>，</p>
+        <p>你的账号已创建成功，请点击下方按钮完成邮箱验证（链接 24 小时内有效）：</p>
+        <p style="text-align:center;margin:24px 0;">
+            <a th:href="${link}"
+               style="display:inline-block;padding:10px 28px;background:#2563eb;color:#ffffff;text-decoration:none;border-radius:6px;">
+                验证邮箱
+            </a>
+        </p>
+        <p style="font-size:12px;color:#94a3b8;">如果按钮无法点击，请复制以下链接到浏览器打开：<br/>
+            <span th:text="${link}" style="color:#2563eb;word-break:break-all;">https://example.com/verify</span>
+        </p>
+    </div>
+    <div style="background:#f8fafc;padding:16px 24px;font-size:12px;color:#94a3b8;text-align:center;">
+        本邮件由 <span th:text="${platform}">Java高级知识</span> 自动发送，请勿直接回复。© <span th:text="${year}">2026</span>
+    </div>
+</div>
+</body>
+</html>
