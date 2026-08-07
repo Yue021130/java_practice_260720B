@@ -1,0 +1,27 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: thread-pool-advanced-practice
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+
+# 预定义线程池演示参数（可在代码中覆盖）
+pool:
+  cpu:
+    core: 4
+    max: 4
+    queue: 200
+  io:
+    core: 8
+    max: 32
+    queue: 500
+  tiny:
+    core: 2
+    max: 4
+    queue: 5
