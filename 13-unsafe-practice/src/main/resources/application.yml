@@ -1,0 +1,17 @@
+# 应用配置
+server:
+  # 后端端口：8093（前序模块已用到 8092，本专题顺延）
+  port: 8093
+
+spring:
+  application:
+    name: unsafe-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+
+# 本专题全部实验都围绕 sun.misc.Unsafe 展开，无需额外连接任何外部服务
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察底层实验过程
+    com.example.unsafe: INFO
