@@ -1,0 +1,37 @@
+# 应用配置
+server:
+  # 后端端口：8094（前序模块已用到 8093，本专题顺延）
+  port: 8094
+  # 上传大小限制：默认 1MB 太小，Excel 经常几 MB，调大到 50MB
+  tomcat:
+    max-swallow-size: -1
+
+spring:
+  application:
+    name: springboot-excel-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+  # 上传大小限制
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+# Excel 实践配置（自定义前缀，便于前端面板与测试统一读取）
+excel:
+  practice:
+    # 演示开关：大数据量导出单页行数（真实工程一般 5000~20000 行一页）
+    bigdata-page-size: 5000
+    # 导入监听器每批落库的行数
+    batch-size: 100
+    # 错误行回写时的错误列名
+    error-column-name: 错误信息
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察读写过程
+    com.example.excel: INFO
+    # POI/EasyExcel 内部日志压到 WARN，避免刷屏
+    com.alibaba.excel: WARN
+    org.apache.poi: WARN
