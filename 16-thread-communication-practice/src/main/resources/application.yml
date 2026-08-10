@@ -1,0 +1,33 @@
+# 应用配置
+server:
+  # 后端端口：8096（前序模块已用到 8095，本专题顺延）
+  port: 8096
+
+spring:
+  application:
+    name: springboot-thread-communication-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+
+# 线程通信实践配置（自定义前缀）
+comm:
+  practice:
+    # 演示线程池参数
+    pool:
+      # 固定线程池核心/最大线程数
+      core-size: 4
+      max-size: 8
+      # 阻塞队列容量
+      queue-capacity: 100
+    # 模拟「单个任务耗时」（毫秒），越大越能看清阻塞/等待效果
+    task-cost-ms: 30
+    # 演示并发默认线程数
+    default-workers: 4
+    # 阻塞队列演示容量
+    queue-size: 5
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察线程通信过程
+    com.example.comm: INFO
