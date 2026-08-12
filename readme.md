@@ -19,6 +19,10 @@
 | [09-exception-practice](09-exception-practice/) | Java 异常体系全场景：分类 / try-catch-finally / try-with-resources / 常见异常 / Spring 全局异常 / 并发异常 / 最佳实践 | Vue 3 + Vite | 8089 | 5182 |
 | [10-sa-token-practice](10-sa-token-practice/) | Sa-Token 全功能实践：登录认证 / 权限鉴权 / Session / 踢人封禁 / SSO / OAuth2.0 / Redis / JWT / API 签名 / 网关 / RPC / Quick 登录 | Vue 3 + Vite | 8090 | 5183 |
 | [11-thread-pool-advanced-practice](11-thread-pool-advanced-practice/) | Java 线程池深度实践：源码流程 / 七大参数 / 7 种阻塞队列 / 4 种拒绝策略 / Executors 工厂风险 / 生命周期 | Vue 3 + Vite | 8091 | 5184 |
+| [12-springboot-mail-practice](12-springboot-mail-practice/) | Spring Boot 邮件服务实践：基础文本 / 富文本 HTML / 附件 / 内联图片 / Thymeleaf 模板 / 异步发送 / 失败重试 / Quartz 定时任务 / @EventListener 事件监听 / 编码与邮件头 / 常见坑 | Vue 3 + Vite | 8092 | 5185 |
+| [13-unsafe-practice](13-unsafe-practice/) | 魔法类 Unsafe 实践：获取实例 / 堆外内存 / 绕过构造器 / CAS 原子操作 / 字段偏移与对象布局 / park-unpark / 内存屏障 / 危险与本质 | Vue 3 + Vite | 8093 | 5186 |
+| [14-springboot-excel-practice](14-springboot-excel-practice/) | Spring Boot + EasyExcel 导入导出实践：注解映射 / 样式 / 复杂表头 / 大数据量导出 / 数据校验与错误回写 / 监听器增量读取 / 模板填充 / Web 下载与上传 / 常见坑与调优 | Vue 3 + Vite | 8094 | 5187 |
+| [15-caffeine-practice](15-caffeine-practice/) | Spring Boot + Caffeine 缓存实践：快速开始 / 淘汰策略 / 刷新与异步 / 统计监控 / **缓存预热** / 穿透击穿雪崩与单飞 / 两级缓存 / Spring Cache 注解 / 缓存一致性 / 常见坑与调优 | Vue 3 + Vite | 8095 | 5188 |
 
 ## 通用启动方式
 
