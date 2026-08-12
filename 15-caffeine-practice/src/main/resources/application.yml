@@ -1,0 +1,36 @@
+# 应用配置
+server:
+  # 后端端口：8095（前序模块已用到 8094，本专题顺延）
+  port: 8095
+
+spring:
+  application:
+    name: springboot-caffeine-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+  # Spring Cache 不缓存 null（防穿透用空对象占位，而不是把 null 塞进缓存）
+  cache:
+    type: caffeine
+
+# 缓存实践配置（自定义前缀）
+cache:
+  practice:
+    # 预热配置
+    preheat:
+      # 是否启动完成自动预热（测试里关掉，改用手动 warm）
+      enabled: true
+      # 预热的热门 key 数量
+      key-count: 50
+      # 每批加载多少条（预热分批进行，避免启动卡顿）
+      batch-size: 10
+    # 通用缓存参数
+    max-size: 1000
+    expire-after-write-ms: 60000
+    # 模拟「从 DB 查询」的单次耗时（毫秒），越大越能看清缓存效果
+    load-cost-ms: 30
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察缓存命中/预热过程
+    com.example.cache: INFO
