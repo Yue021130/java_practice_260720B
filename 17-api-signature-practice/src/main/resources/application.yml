@@ -1,0 +1,28 @@
+# 应用配置
+server:
+  # 后端端口：8097（前序模块已用到 8096，本专题顺延）
+  port: 8097
+
+spring:
+  application:
+    name: springboot-api-signature-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+
+# 接口签名鉴权实践配置（自定义前缀）
+sign:
+  practice:
+    # 防重放：时间戳允许的最大偏差（秒），默认 ±5 分钟
+    timestamp-skew-seconds: 300
+    # nonce 有效期（秒），与时间戳窗口一致
+    nonce-ttl-seconds: 300
+    # 演示用注册的 appid
+    demo-app-id: demo_app_001
+    # 演示用 appkey（生产绝不落库明文，这里教学演示）
+    demo-app-key: d1c4a5b9f2e7e0c8d3b6a1f4e9c2b8d7a5f3e1c0b9d8a7c6b5f4e3d2c1a0b9f8
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察签名校验过程
+    com.example.sign: INFO
