@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f5f7fa;
+  color: #2c3e50;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #1e293b;
+  color: #fff;
+  padding: 24px 0;
+  flex-shrink: 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar h1 {
+  font-size: 18px;
+  padding: 0 20px 20px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid #334155;
+  line-height: 1.5;
+}
+
+.menu-item {
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 14px;
+  border-left: 4px solid transparent;
+}
+
+.menu-item:hover {
+  background: #334155;
+}
+
+.menu-item.active {
+  background: #2563eb;
+  border-left-color: #60a5fa;
+}
+
+.content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 32px;
+  max-width: 1200px;
+}
+
+.module-title {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.module-desc {
+  margin: 0 0 24px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.card p {
+  margin: 0 0 14px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.params {
+  margin-bottom: 14px;
+}
+
+.params label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.params select,
+.params input {
+  margin-left: 8px;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  min-width: 120px;
+}
+
+.btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.btn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.tip {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.result {
+  margin-top: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
