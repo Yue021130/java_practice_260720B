@@ -1,0 +1,28 @@
+# 应用配置
+server:
+  # 后端端口：8098（前序模块已用到 8097，本专题顺延）
+  port: 8098
+
+spring:
+  application:
+    name: springboot-optional-stream-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+
+# Optional + Stream 实践配置（自定义前缀）
+os:
+  practice:
+    # 默认统计日期范围（天数），报表场景未传时间范围时使用
+    default-date-range-days: 30
+    # 数据清洗单次最大处理条数
+    max-clean-batch-size: 1000
+    # 通知保留天数，过滤旧通知用
+    notification-keep-days: 7
+    # Excel 导入校验：允许的最大空值率（百分比）
+    excel-max-empty-rate: 20
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察 Optional/Stream 处理过程
+    com.example.os: INFO
