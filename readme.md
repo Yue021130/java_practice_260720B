@@ -25,6 +25,7 @@
 | [15-caffeine-practice](15-caffeine-practice/) | Spring Boot + Caffeine 缓存实践：快速开始 / 淘汰策略 / 刷新与异步 / 统计监控 / **缓存预热** / 穿透击穿雪崩与单飞 / 两级缓存 / Spring Cache 注解 / 缓存一致性 / 常见坑与调优 | Vue 3 + Vite | 8095 | 5188 |
 | [16-thread-communication-practice](16-thread-communication-practice/) | Java 线程间通信方式实践：共享内存(volatile/原子类) / 等待通知(wait-notify/Condition) / 线程协作(join/interrupt/LockSupport) / JUC 同步工具 / 阻塞队列 / 异步结果传递 / 管道通道 / 选型总结 | Vue 3 + Vite | 8096 | 5189 |
 | [17-api-signature-practice](17-api-signature-practice/) | 基于 appid + appkey 的 HMAC-SHA256 接口签名鉴权实践：核心原理 / 签名计算 / 服务端验签 / 防重放(时间戳+nonce) / 请求体完整性 / 规范化 / 简化版 / 拦截器实战 / 选型对比 | Vue 3 + Vite | 8097 | 5190 |
+| [18-optional-stream-practice](18-optional-stream-practice/) | Java Optional + Stream 真实业务场景实践：用户画像聚合 / 订单报表统计 / 菜单权限树 / 批量数据清洗 / SKU 最优价格 / 消息通知过滤 / Excel 导入校验 / 分页再加工 / 反模式对比 | Vue 3 + Vite | 8098 | 5191 |
 
 ## 通用启动方式
 
