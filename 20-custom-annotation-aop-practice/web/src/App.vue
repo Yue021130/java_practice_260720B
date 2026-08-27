@@ -14,7 +14,11 @@ const modules = [
   { key: 'masking', title: '04. 数据脱敏', desc: '@DataMasking 对敏感字段脱敏' },
   { key: 'timing', title: '05. 耗时监控', desc: '@Timing 计算方法执行耗时' },
   { key: 'combine', title: '06. 注解组合', desc: '多个注解叠加使用' },
-  { key: 'explain', title: '07. 八股速记', desc: '核心考点与坑点清单' }
+  { key: 'builtin', title: '07. 内置注解', desc: '@Override / @Deprecated / @SuppressWarnings' },
+  { key: 'inherited', title: '08. @Inherited', desc: '子类继承父类上的注解' },
+  { key: 'repeatable', title: '09. @Repeatable', desc: '同一个注解多次使用' },
+  { key: 'validate', title: '10. 参数校验', desc: '@Valid + Bean Validation' },
+  { key: 'explain', title: '11. 八股速记', desc: '核心考点与坑点清单' }
 ]
 
 const scenarios = {
@@ -40,6 +44,19 @@ const scenarios = {
   ],
   explain: [
     { key: 'explain', title: '八股速记', method: 'get', url: '/api/demo/explain', tip: '本专题所有知识点速查。' }
+  ],
+  builtin: [
+    { key: 'builtin', title: '内置注解演示', method: 'get', url: '/api/demo/builtin', tip: '观察 @Override / @Deprecated / @SuppressWarnings 的用法与说明。' }
+  ],
+  inherited: [
+    { key: 'inherited', title: '@Inherited 演示', method: 'get', url: '/api/demo/inherited', tip: '验证子类是否继承了父类上的 @InheritedMarker。' }
+  ],
+  repeatable: [
+    { key: 'audit', title: '@Repeatable 演示', method: 'get', url: '/api/demo/audit', tip: '读取方法上的多个 @Audit 注解。' }
+  ],
+  validate: [
+    { key: 'valid', title: '合法用户', desc: '校验通过 200', method: 'post', url: '/api/demo/validate', body: { name: '张三', phone: '13800138001', email: 'zhangsan@example.com', idCard: '110101199001011234' }, tip: '所有字段符合约束，返回 code=200。' },
+    { key: 'invalid', title: '非法用户', desc: '校验失败 400', method: 'post', url: '/api/demo/validate', body: { name: '', phone: '123', email: 'invalid', idCard: 'xxx' }, tip: '字段不符合约束，全局异常处理器返回 code=400。' }
   ]
 }
 
@@ -54,7 +71,7 @@ async function callScenario(scenario) {
     if (scenario.method === 'get') {
       res = await axios.get(scenario.url, config)
     } else {
-      res = await axios.post(scenario.url, {}, config)
+      res = await axios.post(scenario.url, scenario.body || {}, config)
     }
     results.value[cacheKey] = JSON.stringify(res.data, null, 2)
   } catch (err) {
