@@ -1,0 +1,19 @@
+# 应用配置
+server:
+  # 后端端口：8100（前序模块已用到 8099，本专题顺延）
+  port: 8100
+
+spring:
+  application:
+    name: springboot-custom-annotation-aop-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+  # AOP 默认使用 JDK 动态代理（代理接口）或 CGLIB（代理类），Spring Boot 2.x 默认已开启
+  aop:
+    proxy-target-class: true
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察 AOP 拦截过程
+    com.example.caa: INFO
