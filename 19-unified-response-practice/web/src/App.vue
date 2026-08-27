@@ -18,9 +18,11 @@ const modules = [
 const scenarios = {
   basic: [
     { key: 'detail', title: '查询单个用户', desc: '返回 Result<UserVO>', method: 'get', url: '/user/101', tip: 'Controller 返回 UserVO，自动包一层 Result。' },
+    { key: 'detail-with-msg', title: '查询单个用户（自定义提示）', desc: 'ResultFactory.success(msg, data)', method: 'get', url: '/user/detail-with-msg/101', tip: '演示 success(msg, data) 重载，返回 Result<UserVO>。' },
     { key: 'list', title: '查询用户列表', desc: '返回 Result<List<UserVO>>', method: 'get', url: '/user/list', tip: 'Controller 返回 List，自动包一层 Result。' },
     { key: 'page', title: '分页查询', desc: '返回 Result<PageResult<UserVO>>', method: 'get', url: '/user/page?pageNum=1&pageSize=3', tip: 'Controller 返回 PageResult，自动包一层 Result。' }
   ],
+
   valid: [
     { key: 'valid-create', title: '合法表单提交', desc: 'code=0', method: 'post', url: '/user/create', body: { name: '周八', age: 25, email: 'zhouba@example.com', phone: '13300133003', password: '123456' }, tip: '所有字段符合校验规则。' },
     { key: 'invalid-create', title: '非法表单提交', desc: 'code=400', method: 'post', url: '/user/create', body: { name: '', age: -1, email: 'invalid', phone: '123', password: '123' }, tip: '观察全局异常处理器返回的统一错误。' }
@@ -30,7 +32,8 @@ const scenarios = {
     { key: 'update-missing', title: '更新不存在用户', desc: 'code=404', method: 'post', url: '/user/update', body: { id: 99999, name: '不存在', age: 20, email: 'no@example.com', phone: '13300133004', password: '123456' }, tip: 'Service 层抛异常，全局处理。' }
   ],
   wrap: [
-    { key: 'raw-string', title: 'String 返回值', desc: 'Result<String> 且是 JSON', method: 'get', url: '/user/raw-string', tip: '重点看响应是不是 JSON，而不是字符串 JSON。' },
+    { key: 'raw-string', title: 'String 推荐做法', desc: '直接返回 Result<String>', method: 'get', url: '/user/raw-string', tip: '原文推荐：不要让 Controller 返回裸 String，而是返回 ResultFactory.success("已发送")。' },
+    { key: 'raw-string-bare', title: 'String 跳过包装', desc: '@IgnoreResultWrap 返回纯文本', method: 'get', url: '/user/raw-string-bare', tip: '另一种稳妥做法：明确跳过统一包装，直接返回 text/plain。' },
     { key: 'manual-wrap', title: '手动包装示例', desc: 'Controller 直接返回 Result', method: 'get', url: '/user/manual-wrap/101', tip: '验证不会 Result 套 Result。' }
   ],
   download: [
