@@ -1,6 +1,6 @@
 # 19-unified-response-practice：Spring Boot 统一返回结果封装实战
 
-「java高级知识」系列第 19 个专题。本模块完整落地微信公众号文章《Spring Boot 统一返回结果封装》中的全套方案：
+「java高级知识」系列第 19 个专题。本模块完整落地微信公众号文章《SpringBoot3 全局统一返回结果封装：全网最干净的前后端交互规范》中的全套方案（原文 HTML 已放入本目录）：
 **Result 结构体、ResultCode 枚举、ResultFactory 静态工厂、PageResult 分页封装、`ResponseBodyAdvice` 全局自动包装、
 `@IgnoreResultWrap` 特例、全局异常处理、BusinessException 业务异常、参数校验、前端 axios 统一拦截器、
 String 返回值陷阱、文件下载跳过包装、Swagger 文档适配**。
@@ -282,8 +282,34 @@ Controller 返回 String 时，Spring 默认使用 `StringHttpMessageConverter`�
 5. **05 文件下载**：点击下载，验证 ResponseBodyAdvice 不拦截。
 6. **06 八股速记**：通读核心考点与坑点清单。
 
+## 与微信公众号原文对照
+
+本地已存放原文 HTML：`SpringBoot3 全局统一返回结果封装：全网最干净的前后端交互规范 .html`。
+
+| 原文章节 | 核心观点 | 本地落地 |
+| --- | --- | --- |
+| 一、先说说那段痛 | 返回体不统一导致前后端协作成本高 | 用统一 `Result<T>` 解决，见 `common/result/Result.java` |
+| 二、为什么不能直接返回实体 | 语义维度（状态码/提示/数据/元信息）需要稳定契约 | `Result` 四字段：`code/msg/data/timestamp` |
+| 三、Result 结构体设计 | `code=0` 表示成功，`timestamp` 用于排查 | `ResultCode.SUCCESS(0)`、`Result` 自动带时间戳 |
+| 四、成功/失败静态方法 | 用 `ResultFactory` 与 `ResultCode` 枚举，禁止魔法数字 | `ResultFactory.java`、`ResultCode.java` |
+| 五、分页/List 统一封装 | 分页字段名与前端约定死 | `PageResult<T>`（list/total/pageNum/pageSize/pages） |
+| 六、全局自动包装 | `@RestControllerAdvice` + `ResponseBodyAdvice` | `GlobalResponseAdvice.java` |
+| 6.1 全局异常也要统一 | 异常路径统一返回 Result | `GlobalExceptionHandler.java`、`BusinessException.java` |
+| 七、适配前端统一拦截 | axios 拦截器根据 code 统一处理 | `web/src/api/request.js` |
+| 八、常见坑点 | Result 套 Result、String 变字符串 JSON、下载被包装等 | `UserController.java` 各示例接口及本 README 面试八股 |
+| 九、生产最佳实践清单 | 状态码枚举、VO 隔离、文档展示包装结构等 | 本章节“生产最佳实践清单”与 `UserController` 类级别 `@ApiResponse` |
+
+本次对照原文后的重点补充：
+
+1. **Swagger 显示统一包装结构**：给 `Result`、`PageResult` 加 `@Schema`，给 `UserController` 类加 `@ApiResponse(content=@Content(schema=@Schema(implementation=Result.class)))`，解决原文坑 6。
+2. **String 返回值推荐做法**：`/api/user/raw-string` 改为直接返回 `Result<String>`，避免 `StringHttpMessageConverter` 陷阱；同时新增 `/api/user/raw-string-bare` 展示 `@IgnoreResultWrap` 跳过包装方案。
+3. **`success(msg, data)` 重载落地**：新增 `/api/user/detail-with-msg/{id}`，演示自定义成功提示。
+
 ## 参考
 
+- 本地原文：`SpringBoot3 全局统一返回结果封装：全网最干净的前后端交互规范 .html`
 - [微信公众号原文：Spring Boot 统一返回结果封装](https://mp.weixin.qq.com/s/-LLYCtwzfwcYwyJOg46a5g)
 - [Spring Boot 2.7 官方文档](https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/)
 - [Spring ResponseBodyAdvice 文档](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-advice)
+
+
