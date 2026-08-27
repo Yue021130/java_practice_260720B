@@ -1,0 +1,22 @@
+# 应用配置
+server:
+  # 后端端口：8099（前序模块已用到 8098，本专题顺延）
+  port: 8099
+
+spring:
+  application:
+    name: springboot-unified-response-practice
+  # 强制 UTF-8，避免 Windows 控制台中文乱码
+  banner:
+    charset: UTF-8
+  jackson:
+    # 统一日期时间格式，避免 LocalDateTime 序列化异常
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+
+logging:
+  level:
+    # 教学项目：把自己包的日志开到 INFO，方便观察统一包装与异常处理过程
+    com.example.ur: INFO
