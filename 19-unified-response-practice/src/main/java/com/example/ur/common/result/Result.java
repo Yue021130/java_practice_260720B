@@ -1,5 +1,6 @@
 package com.example.ur.common.result;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,20 +26,25 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "统一返回结果封装：所有业务接口最终都以该结构写出，前端统一判断 code")
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /** 业务状态码：0 成功，非 0 失败 */
+    @Schema(description = "业务状态码：0 表示成功，非 0 表示各种业务/系统错误", example = "0")
     private int code;
 
     /** 提示信息 */
+    @Schema(description = "提示信息，给用户看的文案", example = "操作成功")
     private String msg;
 
     /** 业务数据 */
+    @Schema(description = "真正的业务数据，类型随接口变化，成功时可能为 null")
     private T data;
 
     /** 服务端响应时间戳（毫秒） */
+    @Schema(description = "服务端响应时间戳（毫秒），便于排查问题", example = "1724634000000")
     private long timestamp;
 
     public Result(int code, String msg, T data) {

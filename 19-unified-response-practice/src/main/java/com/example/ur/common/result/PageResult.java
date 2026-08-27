@@ -1,5 +1,6 @@
 package com.example.ur.common.result;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,23 +15,29 @@ import java.util.List;
  * @param <T> 列表元素类型
  */
 @Data
+@Schema(description = "统一分页结果封装：作为 Result.data 承载列表与分页元信息")
 public class PageResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /** 当前页数据 */
+    @Schema(description = "当前页数据列表")
     private List<T> list;
 
     /** 总记录数 */
+    @Schema(description = "总记录数", example = "10")
     private long total;
 
     /** 当前页码（从 1 开始） */
+    @Schema(description = "当前页码，从 1 开始", example = "1")
     private long pageNum;
 
     /** 每页条数 */
+    @Schema(description = "每页条数", example = "3")
     private long pageSize;
 
     /** 总页数 */
+    @Schema(description = "总页数（自动计算）", example = "4")
     private long pages;
 
     public PageResult() {

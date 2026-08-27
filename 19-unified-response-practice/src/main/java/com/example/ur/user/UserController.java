@@ -5,10 +5,14 @@ import com.example.ur.common.result.BusinessException;
 import com.example.ur.common.result.PageResult;
 import com.example.ur.common.result.Result;
 import com.example.ur.common.result.ResultCode;
+import com.example.ur.common.result.ResultFactory;
 import com.example.ur.domain.User;
 import com.example.ur.vo.UserVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -40,6 +44,11 @@ import java.util.Map;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @Tag(name = "用户管理", description = "统一返回结果封装实战示例")
+@ApiResponse(
+        responseCode = "200",
+        description = "统一返回 Result 结构：{code, msg, data, timestamp}",
+        content = @Content(schema = @Schema(implementation = Result.class))
+)
 public class UserController {
 
     private final UserService userService;
@@ -53,6 +62,20 @@ public class UserController {
             @Parameter(description = "用户 ID", example = "101")
             @PathVariable Long id) {
         return userService.getById(id);
+    }
+
+    /**
+     * 查询单个用户并自定义成功提示：演示 ResultFactory.success(msg, data) 重载。
+     *
+     * <p>Controller 直接返回 Result，GlobalResponseAdvice 识别出已经是 Result 后不再重复包装。</p>
+     */
+    @GetMapping("/detail-with-msg/{id}")
+    @Operation(summary = "查询单个用户（自定义成功提示）", description = "演示 ResultFactory.success(msg, data)，返回 Result<UserVO>")
+    public Result<UserVO> detailWithMsg(
+            @Parameter(description = "用户 ID", example = "101")
+            @PathVariable Long id) {
+        UserVO userVO = userService.getById(id);
+        return ResultFactory.success("查询成功", userVO);
     }
 
     /**
@@ -131,12 +154,31 @@ public class UserController {
     }
 
     /**
-     * 返回裸 String：验证自动包装后仍然是 JSON，而不是字符串 JSON。
+     * String 返回值推荐做法：直接返回 Result&lt;String&gt;。
+     *
+     * <p>原文第 8 节坑 2 指出，Controller 直接返回裸 String 时，StringHttpMessageConverter
+     * 容易导致前端收到字符串 JSON。更稳妥的做法是不让 Controller 返回裸 String，
+     * 而是直接返回 ResultFactory.success("已发送")，从源头避开这个坑。</p>
      */
     @GetMapping("/raw-string")
-    @Operation(summary = "String 返回值示例", description = "Controller 返回 String，验证被包装成 Result<String> 且响应是 JSON")
-    public String rawString() {
-        return "ok";
+    @Operation(summary = "String 返回值推荐做法", description = "Controller 直接返回 Result<String>，不再依赖自动包装 String")
+    public Result<String> rawString() {
+        return ResultFactory.success("ok");
+    }
+
+    /**
+     * String 返回值对比示例：用 @IgnoreResultWrap 跳过统一包装，直接返回纯文本。
+     *
+     * <p>展示另一种稳妥做法：如果业务场景必须返回裸字符串，就明确跳过统一包装，
+     * 并自行控制 Content-Type，避免被 ResponseBodyAdvice 包一层 Result。</p>
+     */
+    @GetMapping("/raw-string-bare")
+    @IgnoreResultWrap
+    @Operation(summary = "String 跳过包装示例", description = "@IgnoreResultWrap + ResponseEntity<String> 直接返回纯文本")
+    public ResponseEntity<String> rawStringBare() {
+        return ResponseEntity.ok()
+                .contentType(org.springframework.http.MediaType.TEXT_PLAIN)
+                .body("ok");
     }
 
     /**
