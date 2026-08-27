@@ -1,6 +1,8 @@
 package com.example.caa.common;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,6 +23,14 @@ public class GlobalExceptionHandler {
     public ApiResponse<Void> handleIllegalState(IllegalStateException e) {
         log.warn("状态异常: {}", e.getMessage());
         return ApiResponse.fail(429, e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiResponse<Void> handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        String msg = fieldError == null ? "参数校验失败" : fieldError.getDefaultMessage();
+        log.warn("参数校验失败: {}", msg);
+        return ApiResponse.fail(400, msg);
     }
 
     @ExceptionHandler(Exception.class)

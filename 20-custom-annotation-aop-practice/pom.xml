@@ -40,7 +40,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- 参数校验 -->
+        <!-- 参数校验：演示 Jakarta Bean Validation（Spring Boot 2.7 中为 javax.validation） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>

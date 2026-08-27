@@ -1,5 +1,6 @@
 package com.example.caa.demo;
 
+import com.example.caa.annotation.Audit;
 import com.example.caa.common.ApiResponse;
 import com.example.caa.domain.User;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,10 +8,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -87,6 +92,39 @@ public class DemoController {
     @Operation(summary = "异常日志示例", description = "方法抛异常，观察 @LogOperation 记录的失败日志")
     public ApiResponse<Map<String, Object>> errorLog() {
         return ApiResponse.ok(demoService.errorLog());
+    }
+
+    @GetMapping("/audit")
+    @Operation(summary = "重复注解示例", description = "读取方法上的多个 @Audit 注解")
+    public ApiResponse<Map<String, Object>> audit() throws NoSuchMethodException {
+        // 通过反射读取重复注解，不使用 AOP 也能展示 @Repeatable 的能力
+        Audit[] audits = DemoService.class.getMethod("auditedOperation")
+                .getAnnotationsByType(Audit.class);
+
+        java.util.List<Map<String, String>> auditList = new java.util.ArrayList<>();
+        for (Audit audit : audits) {
+            Map<String, String> item = new LinkedHashMap<>();
+            item.put("action", audit.action());
+            item.put("desc", audit.desc());
+            auditList.add(item);
+        }
+
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("count", audits.length);
+        result.put("audits", auditList);
+        result.put("tip", "Java 8 起可用 @Repeatable 让同一个注解在同一个位置出现多次");
+        return ApiResponse.ok(result);
+    }
+
+    @PostMapping("/validate")
+    @Operation(summary = "参数校验示例", description = "@Valid 触发 Bean Validation，校验失败返回 400")
+    public ApiResponse<Map<String, Object>> validate(
+            @Parameter(description = "用户信息", required = true)
+            @Valid @RequestBody User user) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("message", "校验通过");
+        result.put("userName", user.getName());
+        return ApiResponse.ok(result);
     }
 
     @GetMapping("/explain")

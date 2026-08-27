@@ -1,5 +1,6 @@
 package com.example.caa.demo;
 
+import com.example.caa.annotation.Audit;
 import com.example.caa.annotation.DataMasking;
 import com.example.caa.annotation.LogOperation;
 import com.example.caa.annotation.RateLimit;
@@ -107,6 +108,17 @@ public class DemoService {
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("message", "组合注解全部通过");
         result.put("timestamp", System.currentTimeMillis());
+        return result;
+    }
+
+    /**
+     * 演示 Java 8 重复注解：一个方法上标注多个 @Audit。
+     */
+    @Audit(action = "CREATE_USER", desc = "创建用户")
+    @Audit(action = "SEND_MESSAGE", desc = "发送通知")
+    public Map<String, Object> auditedOperation() {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("message", "重复注解方法执行成功");
         return result;
     }
 
