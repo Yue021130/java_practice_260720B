@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
  *
  * <p>标注在方法上，方法返回后 AOP 切面对返回值对象中的指定字段做脱敏处理。
  * 支持字符串类型字段，如手机号、邮箱、身份证等。</p>
+ *
+ * <p>文章提醒：反射处理字段性能较低，大数据量时慎用；切面修改返回值对调用方不透明，
+ * 必要时提供开关（如本注解的 fields 为空则跳过）。</p>
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

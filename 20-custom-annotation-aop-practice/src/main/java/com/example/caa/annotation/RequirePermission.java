@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
  *
  * <p>标注在方法上，方法执行前会校验当前用户是否拥有指定权限。
  * 无权限时抛出 SecurityException，由全局异常处理器返回 403。</p>
+ *
+ * <p>文章坑点提醒：注解本身不干活，必须有切面或处理器解析；
+ * 权限校验适合用 @Before 或 @Around，尽早拒绝非法请求。</p>
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

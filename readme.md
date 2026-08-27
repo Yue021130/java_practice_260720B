@@ -27,7 +27,7 @@
 | [17-api-signature-practice](17-api-signature-practice/) | 基于 appid + appkey 的 HMAC-SHA256 接口签名鉴权实践：核心原理 / 签名计算 / 服务端验签 / 防重放(时间戳+nonce) / 请求体完整性 / 规范化 / 简化版 / 拦截器实战 / 选型对比 | Vue 3 + Vite | 8097 | 5190 |
 | [18-optional-stream-practice](18-optional-stream-practice/) | Java Optional + Stream 真实业务场景实践：用户画像聚合 / 订单报表统计 / 菜单权限树 / 批量数据清洗 / SKU 最优价格 / 消息通知过滤 / Excel 导入校验 / 分页再加工 / 反模式对比 | Vue 3 + Vite | 8098 | 5191 |
 | [19-unified-response-practice](19-unified-response-practice/) | Spring Boot 统一返回结果封装实战：Result / ResultCode / ResultFactory / PageResult / ResponseBodyAdvice 全局自动包装 / 全局异常处理 / 前端 axios 拦截器 / Swagger 显示统一包装结构 / String 返回值两种稳妥方案 | Vue 3 + Vite | 8099 | 5192 |
-| [20-custom-annotation-aop-practice](20-custom-annotation-aop-practice/) | Spring Boot 自定义注解 + AOP 高阶玩法实战：操作日志 / 权限校验 / 接口限流 / 数据脱敏 / 耗时监控 / 注解组合 | Vue 3 + Vite | 8100 | 5193 |
+| [20-custom-annotation-aop-practice](20-custom-annotation-aop-practice/) | Spring Boot 自定义注解 + AOP 高阶玩法实战：内置注解 / 元注解 / 自定义注解 + AOP / 操作日志 / 权限校验 / 接口限流 / 数据脱敏 / 耗时监控 / @Repeatable / Bean Validation / 注解组合 | Vue 3 + Vite | 8100 | 5193 |
 
 ## 通用启动方式
 

@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit;
  *
  * <p>基于内存计数器实现简易限流，适合教学演示。
  * 生产环境建议使用 Redis + Lua 或 Sentinel。</p>
+ *
+ * <p>文章坑点提醒：注解参数语义要清晰，如这里用 {@link TimeUnit} 枚举表示时间单位，
+ * 避免用魔法数字 0 造成“不过期还是立即过期”的歧义。</p>
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

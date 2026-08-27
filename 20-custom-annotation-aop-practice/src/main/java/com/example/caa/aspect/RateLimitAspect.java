@@ -18,6 +18,9 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * <p>基于内存计数器实现滑动窗口限流。每个方法一个窗口，窗口内请求数超过 qps 则拒绝。
  * 注意：这是教学演示，单机适用；生产环境请使用 Redis + Lua 或 Sentinel。</p>
+ *
+ * <p>文章提醒：RUNTIME 注解 + 反射有性能开销，高频调用场景慎用；
+ * 本切面仅做教学演示，集群环境必须换分布式限流方案。</p>
  */
 @Slf4j
 @Aspect

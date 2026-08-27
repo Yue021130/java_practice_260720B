@@ -18,6 +18,9 @@ import java.util.Map;
  *
  * <p>@Around 环绕通知：在目标方法执行前后记录日志，包括方法名、参数、返回值、耗时、异常信息。
  * 这种方式可以获得最完整的上下文。</p>
+ *
+ * <p>对应文章推荐写法：切面方法通过形参注入注解对象（{@code LogOperation logOperation}），
+ * 无需手动从 joinPoint 中反射获取注解，更简洁、类型安全。</p>
  */
 @Slf4j
 @Aspect

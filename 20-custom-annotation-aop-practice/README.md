@@ -1,7 +1,10 @@
 # 20-custom-annotation-aop-practice：自定义注解 + AOP 高阶玩法实战
 
-「java高级知识」系列第 20 个专题。本模块完整落地**自定义注解 + Spring AOP**的高阶玩法：
-操作日志、权限校验、接口限流、数据脱敏、耗时监控，以及多个注解的组合使用。
+「java高级知识」系列第 20 个专题。本模块完整落地微信公众号文章《自定义注解 + AOP 才是高阶玩法，别再只会 Ctrl+C Ctrl+V 了》中的知识点：
+内置注解、元注解、自定义注解 + AOP、常见框架注解（Lombok / Bean Validation）、重复注解 @Repeatable、注解生命周期与 APT 说明，
+以及操作日志、权限校验、接口限流、数据脱敏、耗时监控等 5 个 AOP 实战场景。
+
+本地已存放原文 HTML：`Java 开发 ＞ 自定义注解 ＋ AOP 才是高阶玩法，别再只会 Ctrl＋C Ctrl＋V 了.html`。
 
 - 后端：Spring Boot 2.7.18 + Java 8 + Maven + Lombok + springdoc-openapi 1.7.0 + `spring-boot-starter-aop`，端口 **8100**
 - 前端：Vue 3 + Vite 5 + axios（纯手写 CSS，无 UI 库），开发端口 **5193**
@@ -9,11 +12,13 @@
 
 ## 项目目标
 
-1. 掌握自定义注解的定义与元注解使用。
-2. 掌握 AOP 五种通知类型与使用场景。
-3. 理解 `@Aspect`、`@Component`、`@EnableAspectJAutoProxy` 的作用。
-4. 识别 AOP 常见坑点：自调用失效、代理对象、`@Around` 忘记 `proceed()` 等。
-5. 通过前后端完整闭环 + 自动化测试验证每种切面行为。
+1. 掌握 Java 内置注解（@Override / @Deprecated / @SuppressWarnings）的正确用法。
+2. 掌握元注解（@Target / @Retention / @Documented / @Inherited）与自定义注解定义。
+3. 掌握 AOP 五种通知类型与使用场景，理解注解形参注入写法。
+4. 理解 `@Aspect`、`@Component`、`@EnableAspectJAutoProxy` 的作用。
+5. 识别 AOP 常见坑点：注解需要处理器、RUNTIME 反射性能、参数语义不清、自调用失效、`@Around` 忘记 `proceed()` 等。
+6. 掌握 Java 8 `@Repeatable` 重复注解与容器注解的写法。
+7. 通过前后端完整闭环 + 自动化测试验证每种切面行为。
 
 ## 模块结构
 
@@ -35,15 +40,25 @@
 │   │   ├── RequirePermission.java
 │   │   ├── RateLimit.java
 │   │   ├── DataMasking.java
-│   │   └── Timing.java
+│   │   ├── Timing.java
+│   │   ├── InheritedMarker.java     # @Inherited 演示
+│   │   ├── Audit.java               # @Repeatable 可重复注解
+│   │   └── Audits.java              # @Repeatable 容器注解
 │   ├── aspect/                      # AOP 切面实现
 │   │   ├── LogOperationAspect.java
 │   │   ├── PermissionAspect.java
 │   │   ├── RateLimitAspect.java
 │   │   ├── DataMaskingAspect.java
 │   │   └── TimingAspect.java
+│   ├── builtin/                     # 内置注解演示
+│   │   ├── BuiltinAnnotationDemo.java
+│   │   └── BuiltinAnnotationController.java
+│   ├── inherited/                   # @Inherited 演示
+│   │   ├── BaseAnnotatedService.java
+│   │   ├── InheritedChildService.java
+│   │   └── InheritedAnnotationController.java
 │   ├── domain/
-│   │   └── User.java
+│   │   └── User.java                # 含 Bean Validation 约束
 │   ├── support/
 │   │   └── MockDataRepository.java
 │   └── demo/
@@ -51,7 +66,11 @@
 │       └── DemoService.java
 ├── src/test/java/com/example/caa/
 │   ├── ScenarioApiTest.java
-│   └── AopBehaviorUnitTest.java
+│   ├── AopBehaviorUnitTest.java
+│   ├── BuiltinAnnotationUnitTest.java
+│   ├── InheritedAnnotationUnitTest.java
+│   ├── RepeatableAnnotationUnitTest.java
+│   └── ValidationApiTest.java
 └── web/                             # Vue 3 前端面板
     ├── index.html
     ├── package.json
@@ -105,6 +124,10 @@ mvn test
 | `/api/demo/timing` | GET | 耗时监控 |
 | `/api/demo/combine` | GET | 组合注解：日志 + 权限 + 限流 + 耗时 |
 | `/api/demo/error-log` | GET | 异常日志示例 |
+| `/api/demo/builtin` | GET | 内置注解 @Override/@Deprecated/@SuppressWarnings 演示 |
+| `/api/demo/inherited` | GET | @Inherited 元注解演示 |
+| `/api/demo/audit` | GET | @Repeatable 重复注解演示 |
+| `/api/demo/validate` | POST | @Valid 参数校验演示 |
 | `/api/demo/explain` | GET | 八股速记 |
 
 ## 自定义注解一览
@@ -244,8 +267,26 @@ Spring Boot 2.x 默认 `spring.aop.proxy-target-class=true`，即优先使用 CG
 | 脱敏 | 提供开关，大数据量时考虑性能 |
 | 测试 | 验证 Bean 是否被代理、注解是否正确 |
 
+## 与微信公众号原文对照
+
+本地已存放原文 HTML：`Java 开发 ＞ 自定义注解 ＋ AOP 才是高阶玩法，别再只会 Ctrl＋C Ctrl＋V 了.html`。
+
+| 原文章节 | 核心观点 | 本地落地 |
+| --- | --- | --- |
+| 0. 注解到底是什么 | 注解是代码的元数据，把“做什么”和“怎么做”分离 | 5 个自定义注解只做声明，逻辑交给 5 个 AOP 切面 |
+| 1. 三个内置注解 | @Override / @Deprecated / @SuppressWarnings 每天都要用 | `BuiltinAnnotationDemo.java`、`BuiltinAnnotationController.java` |
+| 2. 元注解 | @Target / @Retention / @Documented / @Inherited 是自定义注解的基础 | 所有自定义注解都使用了前三个；`InheritedMarker.java` 演示 @Inherited |
+| 3. 自定义注解 + 切面 | 推荐注解形参注入，避免全类名字符串和手动反射 | 所有切面都通过方法形参注入注解对象 |
+| 4. 常见框架注解 | Spring Boot 核心注解、Lombok（APT）、Jakarta Bean Validation | 使用 Lombok；新增 `spring-boot-starter-validation`，`User.java` 加约束 |
+| 5. 注解的三大坑 | 注解需要处理器；RUNTIME 反射有性能开销；参数语义要清晰 | 切面 Javadoc 补充提醒；`RateLimit` 用 TimeUnit 枚举明确语义 |
+| 加餐一：@Repeatable | Java 8 允许同一注解多次使用，需定义容器注解 | `Audit.java` + `Audits.java` + `RepeatableAnnotationUnitTest.java` |
+| 加餐二：APT 与生命周期 | SOURCE / CLASS / RUNTIME 区别；Lombok 用 APT | README 说明 + 代码注释 |
+| 加餐三：注解与接口的区别 | 注解是描述，接口是行为契约 | README 面试八股补充 |
+| 小结 | 自定义注解 + AOP 的核心要点清单 | 本 README 面试八股与生产最佳实践清单 |
+
 ## 参考
 
+- 本地原文：`Java 开发 ＞ 自定义注解 ＋ AOP 才是高阶玩法，别再只会 Ctrl＋C Ctrl＋V 了.html`
 - [Spring AOP 官方文档](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop)
 - [AspectJ 注解速查](https://www.eclipse.org/aspectj/doc/released/progguide/semantics-aspectj.html)
 - [Spring Boot AOP Starter](https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/io.html#io.aop)

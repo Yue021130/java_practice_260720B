@@ -10,6 +10,10 @@ import java.lang.annotation.Target;
  * 操作日志注解。
  *
  * <p>标注在方法上，AOP 切面会自动记录方法名、参数、返回值、耗时、是否异常等信息。</p>
+ *
+ * <p>对应文章核心观点：注解只是元数据，真正干活的是切面/处理器；
+ * AOP 切面中推荐使用注解形参注入（如 {@code @Around("@annotation(logOperation)")}），
+ * 避免硬编码类名字符串和手动反射。</p>
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
