@@ -16,6 +16,7 @@
 | [05-threadlocal-practice](05-threadlocal-practice/) | ThreadLocal 全场景：线程隔离 / Web 上下文 / MDC / 线程池串号 / TTL 透传 / 内存泄漏 | Vue 3 + Vite | 8085 | 5178 |
 | [06-stream-lambda-practice](06-stream-lambda-practice/) | Stream / Lambda / Optional 全场景：函数式接口 / Collectors / 基本类型流 / 并行流正确使用与踩坑 | Vue 3 + Vite | 8086 | 5179 |
 | [07-springboot-async-practice](07-springboot-async-practice/) | Spring Boot 异步任务与线程池：@Async / ThreadPoolTaskExecutor / 拒绝策略 / 上下文透传 / 批量聚合 / 优雅关闭 | Vue 3 + Vite | 8087 | 5180 |
+| [08-springboot-core-practice](08-springboot-core-practice/) | Spring Boot 核心能力实战：条件装配 / 生命周期 / 属性绑定 / 事件监听 / 启动流程 / 常用注解 | Vue 3 + Vite | 8088 | 5181 |
 | [09-exception-practice](09-exception-practice/) | Java 异常体系全场景：分类 / try-catch-finally / try-with-resources / 常见异常 / Spring 全局异常 / 并发异常 / 最佳实践 | Vue 3 + Vite | 8089 | 5182 |
 | [10-sa-token-practice](10-sa-token-practice/) | Sa-Token 全功能实践：登录认证 / 权限鉴权 / Session / 踢人封禁 / SSO / OAuth2.0 / Redis / JWT / API 签名 / 网关 / RPC / Quick 登录 | Vue 3 + Vite | 8090 | 5183 |
 | [11-thread-pool-advanced-practice](11-thread-pool-advanced-practice/) | Java 线程池深度实践：源码流程 / 七大参数 / 7 种阻塞队列 / 4 种拒绝策略 / Executors 工厂风险 / 生命周期 | Vue 3 + Vite | 8091 | 5184 |
@@ -28,6 +29,9 @@
 | [18-optional-stream-practice](18-optional-stream-practice/) | Java Optional + Stream 真实业务场景实践：用户画像聚合 / 订单报表统计 / 菜单权限树 / 批量数据清洗 / SKU 最优价格 / 消息通知过滤 / Excel 导入校验 / 分页再加工 / 反模式对比 | Vue 3 + Vite | 8098 | 5191 |
 | [19-unified-response-practice](19-unified-response-practice/) | Spring Boot 统一返回结果封装实战：Result / ResultCode / ResultFactory / PageResult / ResponseBodyAdvice 全局自动包装 / 全局异常处理 / 前端 axios 拦截器 / Swagger 显示统一包装结构 / String 返回值两种稳妥方案 | Vue 3 + Vite | 8099 | 5192 |
 | [20-custom-annotation-aop-practice](20-custom-annotation-aop-practice/) | Spring Boot 自定义注解 + AOP 高阶玩法实战：内置注解 / 元注解 / 自定义注解 + AOP / 操作日志 / 权限校验 / 接口限流 / 数据脱敏 / 耗时监控 / @Repeatable / Bean Validation / 注解组合 | Vue 3 + Vite | 8100 | 5193 |
+| [21-nio2-file-practice](21-nio2-file-practice/) | Java NIO.2 文件操作实战：Path / Files / WatchService / 文件遍历 / 属性读写 / 拷贝移动删除 / 异步文件通道 | Vue 3 + Vite | 8101 | 5194 |
+| [22-easyexcel-stream-practice](22-easyexcel-stream-practice/) | EasyExcel 流式导出实战：大数据量分页 / 临时文件 / 任务状态 / 内存优化 / Web 下载 / 异步生成 | Vue 3 + Vite | 8102 | 5195 |
+| [23-easy-excel-practice](23-easy-excel-practice/) | Easypoi + EasyExcel 导入导出实战：注解映射 / 自定义 Converter / 组内重复校验 / 错误回写 / Web 上传下载 | Vue 3 + Vite | 8103 | 5196 |
 
 ## 通用启动方式
 
