@@ -24,9 +24,11 @@ public class AmountCalculator {
 
     /**
      * 订单金额计算：总价 = 单价 * 数量 * 折扣 + 税费。
+     *
+     * <p>taxRate 为百分比数值，例如 6 表示 6%。</p>
      */
     public Map<String, Object> calculateOrderAmount(CalcRequest req) {
-        int scale = req.getScale() == null ? 2 : req.getScale();
+        int scale = req.getScale();
         RoundingMode mode = RoundingMode.HALF_UP;
 
         // 1. 商品原价
@@ -58,8 +60,21 @@ public class AmountCalculator {
 
     /**
      * 分账计算：把 total 按比例分给多方，最后一方拿剩余金额避免精度丢失。
+     *
+     * <p>校验 platformRate + merchantRate <= 1，防止剩余金额为负。</p>
      */
     public Map<String, Object> splitAmount(BigDecimal total, BigDecimal platformRate, BigDecimal merchantRate, int scale) {
+        if (platformRate == null || merchantRate == null) {
+            throw new IllegalArgumentException("分账比例不能为空");
+        }
+        if (platformRate.compareTo(BigDecimal.ZERO) < 0 || merchantRate.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("分账比例不能为负数");
+        }
+        BigDecimal sumRate = platformRate.add(merchantRate);
+        if (sumRate.compareTo(BigDecimal.ONE) > 0) {
+            throw new IllegalArgumentException("分账比例之和不能超过 1");
+        }
+
         RoundingMode mode = RoundingMode.HALF_UP;
 
         BigDecimal platform = total.multiply(platformRate).setScale(scale, mode);
