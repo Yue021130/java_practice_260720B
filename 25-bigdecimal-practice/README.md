@@ -49,8 +49,8 @@ npm run dev
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| POST | `/api/amount/calculate` | 订单金额计算 |
-| GET | `/api/amount/split` | 分账计算 |
+| POST | `/api/amount/calculate` | 订单金额计算（taxRate 为百分比数值，如 6 表示 6%） |
+| GET | `/api/amount/split` | 分账计算（platformRate + merchantRate <= 1） |
 | GET | `/api/amount/pitfalls` | 常见坑演示 |
 | GET | `/api/amount/explain` | 八股速记 |
 
@@ -84,6 +84,14 @@ a.equals(b);      // false，scale 不同
 a.compareTo(b);   // 0，数值相等
 ```
 
+### 4. 分账比例校验
+
+```java
+if (platformRate.add(merchantRate).compareTo(BigDecimal.ONE) > 0) {
+    throw new IllegalArgumentException("分账比例之和不能超过 1");
+}
+```
+
 ---
 
 ## 八股速记
@@ -103,6 +111,12 @@ a.compareTo(b);   // 0，数值相等
 5. **怎么保留两位小数？**
    - `setScale(2, RoundingMode.HALF_UP)`。
 
+6. **taxRate 传什么格式？**
+   - 传百分比数值，例如 `6` 表示 6%，后端会自动除以 100。
+
+7. **分账时如何保证剩余金额非负？**
+   - 校验 platformRate + merchantRate <= 1，最后一方拿剩余金额。
+
 ---
 
 ## 测试
@@ -111,11 +125,11 @@ a.compareTo(b);   // 0，数值相等
 mvn test
 ```
 
-- `AmountCalculatorTest`：订单计算、分账、常见坑
-- `AmountControllerTest`：接口测试
+- `AmountCalculatorTest`：订单计算、分账、常见坑、除不尽、比例越界
+- `AmountControllerTest`：接口测试、参数校验 400、分账越界 400
 
 ---
 
 ## 作者
 
-我
+Yue021130
