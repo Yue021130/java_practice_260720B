@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * 金额计算服务测试。
@@ -33,6 +34,32 @@ class AmountCalculatorTest {
     }
 
     @Test
+    void calculateOrderAmount_withoutDiscountAndTax_shouldUseDefaults() {
+        CalcRequest req = new CalcRequest();
+        req.setPrice(new BigDecimal("100"));
+        req.setQuantity(2);
+        req.setScale(2);
+
+        Map<String, Object> result = calculator.calculateOrderAmount(req);
+
+        assertThat(result.get("discountedAmount")).isEqualTo("200.00");
+        assertThat(result.get("taxAmount")).isEqualTo("0.00");
+        assertThat(result.get("totalAmount")).isEqualTo("200.00");
+    }
+
+    @Test
+    void calculateOrderAmount_withZeroScale_shouldReturnInteger() {
+        CalcRequest req = new CalcRequest();
+        req.setPrice(new BigDecimal("99.99"));
+        req.setQuantity(3);
+        req.setScale(0);
+
+        Map<String, Object> result = calculator.calculateOrderAmount(req);
+
+        assertThat(result.get("totalAmount")).isEqualTo("300");
+    }
+
+    @Test
     void splitAmount_shouldKeepSumEqualsTotal() {
         Map<String, Object> result = calculator.splitAmount(
                 new BigDecimal("100"),
@@ -42,6 +69,41 @@ class AmountCalculatorTest {
 
         assertThat(result.get("total")).isEqualTo("100.00");
         assertThat(result.get("sumCheck")).isEqualTo(result.get("total"));
+        assertThat(result.get("remainingAmount")).isEqualTo("70.00");
+    }
+
+    @Test
+    void splitAmount_withDivideRemainder_shouldKeepSumEqualsTotal() {
+        Map<String, Object> result = calculator.splitAmount(
+                new BigDecimal("100"),
+                new BigDecimal("0.333"),
+                new BigDecimal("0.333"),
+                2);
+
+        assertThat(result.get("sumCheck")).isEqualTo(result.get("total"));
+        assertThat(result.get("remainingAmount")).isEqualTo("33.40");
+    }
+
+    @Test
+    void splitAmount_shouldRejectNegativeRate() {
+        assertThatThrownBy(() -> calculator.splitAmount(
+                new BigDecimal("100"),
+                new BigDecimal("-0.1"),
+                new BigDecimal("0.2"),
+                2))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("不能为负数");
+    }
+
+    @Test
+    void splitAmount_shouldRejectSumGreaterThanOne() {
+        assertThatThrownBy(() -> calculator.splitAmount(
+                new BigDecimal("100"),
+                new BigDecimal("0.6"),
+                new BigDecimal("0.5"),
+                2))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("不能超过 1");
     }
 
     @Test

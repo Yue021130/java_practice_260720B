@@ -47,6 +47,47 @@ class AmountControllerTest {
     }
 
     @Test
+    void calculate_withInvalidRequest_shouldReturn400() throws Exception {
+        CalcRequest req = new CalcRequest();
+        req.setPrice(new BigDecimal("-1"));
+        req.setQuantity(0);
+        req.setScale(-1);
+
+        mockMvc.perform(post("/api/amount/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(req)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(500))
+                .andExpect(jsonPath("$.data.price").exists())
+                .andExpect(jsonPath("$.data.quantity").exists())
+                .andExpect(jsonPath("$.data.scale").exists());
+    }
+
+    @Test
+    void split_shouldReturnOk() throws Exception {
+        mockMvc.perform(get("/api/amount/split")
+                        .param("total", "100")
+                        .param("platformRate", "0.1")
+                        .param("merchantRate", "0.2")
+                        .param("scale", "2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.data.remainingAmount").value("70.00"));
+    }
+
+    @Test
+    void split_withRateSumGreaterThanOne_shouldReturn400() throws Exception {
+        mockMvc.perform(get("/api/amount/split")
+                        .param("total", "100")
+                        .param("platformRate", "0.6")
+                        .param("merchantRate", "0.5")
+                        .param("scale", "2"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(500))
+                .andExpect(jsonPath("$.message").value("分账比例之和不能超过 1"));
+    }
+
+    @Test
     void pitfalls_shouldReturnDoubleProblem() throws Exception {
         mockMvc.perform(get("/api/amount/pitfalls"))
                 .andExpect(status().isOk())
