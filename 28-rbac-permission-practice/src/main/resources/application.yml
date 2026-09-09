@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # 需要先执行 src/main/resources/sql/rbac_demo.sql 建库建表
+    url: jdbc:mysql://localhost:3306/rbac_demo?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  sql:
+    init:
+      mode: never
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# Sa-Token 配置（JWT 无状态登录）
+sa-token:
+  # token 名称（同时也是 cookie 名称）
+  token-name: Authorization
+  # token 有效期（秒），24 小时
+  timeout: 86400
+  # 是否允许同一账号并发登录（false 时新登录会挤掉旧登录）
+  is-concurrent: false
+  # 在多人登录同一账号时，是否共用一个 token（为 true 时 timeout 无效）
+  is-share: false
+  # token 风格（jwt 模式下固定 uuid）
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: false
+  # JWT 密钥（生产环境请改为随机长字符串，仅在 sa-token-jwt 模块下生效）
+  jwt-secret-key: ZkM3Q2Z4N2EzQmF5QzY3RDEyM0U0NTY3ODkwYWJjZGVm
