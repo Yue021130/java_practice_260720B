@@ -32,6 +32,15 @@
 | [21-nio2-file-practice](21-nio2-file-practice/) | Java NIO.2 文件操作实战：Path / Files / WatchService / 文件遍历 / 属性读写 / 拷贝移动删除 / 异步文件通道 | Vue 3 + Vite | 8101 | 5194 |
 | [22-easyexcel-stream-practice](22-easyexcel-stream-practice/) | EasyExcel 流式导出实战：大数据量分页 / 临时文件 / 任务状态 / 内存优化 / Web 下载 / 异步生成 | Vue 3 + Vite | 8102 | 5195 |
 | [23-easy-excel-practice](23-easy-excel-practice/) | Easypoi + EasyExcel 导入导出实战：注解映射 / 自定义 Converter / 组内重复校验 / 错误回写 / Web 上传下载 | Vue 3 + Vite | 8103 | 5196 |
+| [24-async-event-practice](24-async-event-practice/) | 异步任务与事件解耦实战：@Async 自定义线程池 / ApplicationEventPublisher / 多监听器并行 / 同步 vs 异步对比 | Vue 3 + Vite | 8104 | 5197 |
+| [25-bigdecimal-practice](25-bigdecimal-practice/) | BigDecimal 高精度金额计算实战：四则运算与除法精度 / compareTo 比较 / 分账尾差 / 科学计数法坑 / 格式化与取舍 | Vue 3 + Vite | 8105 | 5198 |
+| [26-tree-strategy-practice](26-tree-strategy-practice/) | 树形结构与策略模式实战：扁平结构转嵌套 children / 部门树菜单树 / 策略模式消除 if-else | Vue 3 + Element Plus | 8080 | 5173 |
+| [27-transaction-ip-practice](27-transaction-ip-practice/) | 事务失效与 IP 归属地实战：@Transactional 失效 5 场景 / 传播行为 / H2 内存库演示 / IP 解析 | Vue 3 + Element Plus | 8080 | 5173 |
+| [28-rbac-permission-practice](28-rbac-permission-practice/) | RBAC 权限 + 动态路由 + 数据权限实战：用户角色权限 / Sa-Token 鉴权 / 前端动态菜单 / 行级数据权限 | Vue 3 + Element Plus | 8080 | 5173 |
+| [29-caffeine-cache-practice](29-caffeine-cache-practice/) | 前后端分离 + Caffeine 缓存实战：Sa-Token JWT 无状态登录 / @Cacheable 注解 / 命中率统计 / 增删改清缓存 | Vue 3 + Element Plus | 8080 | 5173 |
+| [30-validation-masking-practice](30-validation-masking-practice/) | 参数校验 + 数据脱敏实战：JSR-303 分组校验 / 自定义 @Phone @IdCard 注解 / Jackson @Sensitive 序列化打码 / 全局异常 | Vue 3 + Element Plus | 8080 | 5173 |
+
+> 第 26 章起部分项目升级为全家桶栈：Sa-Token JWT 无状态登录 + Knife4j 文档 + Element Plus + Pinia + Axios 拦截器（见各项目 README）。
 
 ## 通用启动方式
 
