@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # MySQL 8.0；建库建表语句见 docs/sql/schema.sql
+    url: jdbc:mysql://localhost:3306/ccp_db?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    # 按本机 MySQL 实际 root 密码修改（本机已验证 root/123456 均无法登录，需自行确认）
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # Caffeine 缓存配置：生产级核心参数集中在这里，对应 Caffeine 文档的完整配置手册
+  cache:
+    # 声明缓存名称（@Cacheable(cacheNames = "user") 必须与这里一致）
+    cache-names: user, userPage
+    caffeine:
+      # spec 语法：maximumSize 最大条目数；expireAfterWrite 写入后过期时间；recordStats 开启统计（配合 /api/cache/stats 演示）
+      spec: maximumSize=1000,expireAfterWrite=10m,recordStats
+
+# Sa-Token 配置
+sa-token:
+  token-name: Authorization          # Token 在请求头中的名称
+  timeout: 86400                     # Token 有效期（秒），1 天
+  is-concurrent: true                # 是否允许同一账号多地登录
+  is-log: false                      # 是否输出操作日志
+  is-read-header: true               # 从请求头读取 Token（前端 axios 拦截器负责注入）
+  jwt-secret-key: ccp-secret-key-2026# JWT 签名密钥（生产环境务必改为复杂随机串并放入配置中心）
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 控制台打印 SQL，方便观察缓存命中时 SQL 是否消失
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted    # 逻辑删除字段
+      logic-delete-value: 1
+      logic-not-delete-value: 0
