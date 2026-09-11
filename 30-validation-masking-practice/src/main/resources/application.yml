@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # MySQL 8.0；建库建表语句见 docs/sql/schema.sql
+    url: jdbc:mysql://localhost:3306/vmp_db?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    # 按本机 MySQL 实际 root 密码修改
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Sa-Token 配置
+sa-token:
+  token-name: Authorization          # Token 在请求头中的名称
+  timeout: 86400                     # Token 有效期（秒），1 天
+  is-concurrent: true                # 是否允许同一账号多地登录
+  is-log: false                      # 是否输出操作日志
+  is-read-header: true               # 从请求头读取 Token（前端 axios 拦截器负责注入）
+  jwt-secret-key: vmp-secret-key-2026# JWT 签名密钥（生产环境务必改为复杂随机串并放入配置中心）
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 控制台打印 SQL，便于学习观察
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted    # 逻辑删除字段
+      logic-delete-value: 1
+      logic-not-delete-value: 0
