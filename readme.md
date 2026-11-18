@@ -39,6 +39,9 @@
 | [28-rbac-permission-practice](28-rbac-permission-practice/) | RBAC 权限 + 动态路由 + 数据权限实战：用户角色权限 / Sa-Token 鉴权 / 前端动态菜单 / 行级数据权限 | Vue 3 + Element Plus | 8080 | 5173 |
 | [29-caffeine-cache-practice](29-caffeine-cache-practice/) | 前后端分离 + Caffeine 缓存实战：Sa-Token JWT 无状态登录 / @Cacheable 注解 / 命中率统计 / 增删改清缓存 | Vue 3 + Element Plus | 8080 | 5173 |
 | [30-validation-masking-practice](30-validation-masking-practice/) | 参数校验 + 数据脱敏实战：JSR-303 分组校验 / 自定义 @Phone @IdCard 注解 / Jackson @Sensitive 序列化打码 / 全局异常 | Vue 3 + Element Plus | 8080 | 5173 |
+| [31-resource-audit-practice](31-resource-audit-practice/) | 资源管理与审计日志实战：可重复读取 RequestWrapper / 审计日志拦截器 / 资源 CRUD | Vue 3 + Element Plus | 8080 | 5173 |
+| [32-servlet-filter-practice](32-servlet-filter-practice/) | Servlet 过滤器链实战：TraceId / 编码 / XSS 清洗 / Timing 过滤器 / Sa 鉴权过滤器 | Vue 3 + Element Plus | 8080 | 5173 |
+| [33-spring-cache-practice](33-spring-cache-practice/) | Spring Cache 二级缓存实战：Caffeine(L1) + Redis(L2) 自定义二级缓存 / @Cacheable 注解 / 穿透击穿雪崩防护 / 命中率监控 | Vue 3 + Element Plus | 8080 | 5173 |
 
 > 第 26 章起部分项目升级为全家桶栈：Sa-Token JWT 无状态登录 + Knife4j 文档 + Element Plus + Pinia + Axios 拦截器（见各项目 README）。
 
