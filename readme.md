@@ -43,6 +43,7 @@
 | [32-servlet-filter-practice](32-servlet-filter-practice/) | Servlet 过滤器链实战：TraceId / 编码 / XSS 清洗 / Timing 过滤器 / Sa 鉴权过滤器 | Vue 3 + Element Plus | 8080 | 5173 |
 | [33-spring-cache-practice](33-spring-cache-practice/) | Spring Cache 二级缓存实战：Caffeine(L1) + Redis(L2) 自定义二级缓存 / @Cacheable 注解 / 穿透击穿雪崩防护 / 命中率监控 | Vue 3 + Element Plus | 8080 | 5173 |
 | [34-spring-event-practice](34-spring-event-practice/) | Spring Event 事件监听实战：同步/异步监听 / @TransactionalEventListener(AFTER_COMMIT) / @Order 顺序 / condition SpEL / 本地消息表可靠性 | Vue 3 + Element Plus | 8080 | 5173 |
+| [35-permission-design-practice](35-permission-design-practice/) | 企业级权限中心实战：RBAC 五表 / 动态路由菜单 / 规则化五级数据权限 / 越权防护(IDOR) / 操作审计与登录日志 | Vue 3 + Element Plus | 8080 | 5173 |
 
 > 第 26 章起部分项目升级为全家桶栈：Sa-Token JWT 无状态登录 + Knife4j 文档 + Element Plus + Pinia + Axios 拦截器（见各项目 README）。
 
