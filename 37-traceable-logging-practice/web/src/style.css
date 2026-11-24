@@ -1,0 +1,41 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #303133;
+}
+
+#app { height: 100vh; }
+
+.page-card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  margin-bottom: 16px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.trace-tag {
+  font-family: Consolas, Monaco, monospace;
+  cursor: pointer;
+}
+
+pre.cmd {
+  background: #282c34;
+  color: #abb2bf;
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+  font-family: Consolas, Monaco, monospace;
+}
