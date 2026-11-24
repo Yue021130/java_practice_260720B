@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  第37章日志配置（本章主角之一）：
+
+  1. 分时分天切割：fileNamePattern="logs/%d{yyyy-MM-dd}/app-%d{yyyy-MM-dd-HH}.log"
+     —— 每小时一个文件，按天归目录；maxHistory 7 天，totalSizeCap 1GB 兜底。
+  2. 按级别分文件：ERROR 及以上单独进 error-*.log，排查问题时只看错误文件。
+  3. awk 友好：CONSOLE_PATTERN 固定列序
+     时间 | 级别 | [线程] | [traceId] | logger | 消息，
+     列位置恒定（%-5level / %logger{36} 定宽），awk 按列提取不漂移。
+  4. 手机号脱敏：%replace(%msg){'\d{11}','***********'}
+     —— pattern 级脱敏，任何 logger 打 11 位数字都会被替换。
+-->
+<configuration>
+
+    <property name="CONSOLE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{traceId:-}] %logger{36} - %msg%n"/>
+    <property name="FILE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{traceId:-}] %logger{36} - %replace(%msg){'\d{11}','***********'}%n"/>
+
+    <!-- 控制台：脱敏只作用于文件落盘，控制台保留原文，方便开发调试时看全量 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 全量日志：按小时切文件、按天归目录 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/current.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/app-%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <!-- 按小时为最小切割单位；maxHistory 按「天目录」保留 7 天 -->
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 错误日志：独立文件，级别过滤 ERROR 及以上 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/error-current.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/error-%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>256MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+</configuration>

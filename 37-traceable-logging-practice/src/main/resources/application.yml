@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: traceable-logging-demo
+
+# 【本章】Actuator 暴露 loggers：动态调整日志级别
+# 用法：POST /actuator/loggers/com.example.tlp  {"configuredLevel":"DEBUG"}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,info
+
+# 定时任务开关（演示时关掉可专注看手动场景）
+demo:
+  scheduler:
+    enabled: true
