@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  第38章日志配置：默认文本格式控制台输出；
+  指定 -Dspring.profiles.active=structured 后输出 JSON（LogstashEncoder），
+  MDC 中的 traceId/userId 等字段自动成为 JSON 字段，直接对接 ELK/Loki。
+-->
+<configuration>
+
+    <property name="CONSOLE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{traceId:-}] %logger{36} - %msg%n"/>
+
+    <!-- 默认（dev）：文本格式 -->
+    <springProfile name="!structured">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${CONSOLE_PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- structured：JSON 一行一条，字段化，供日志采集系统解析 -->
+    <springProfile name="structured">
+        <appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <!-- 自定义字段：应用名、环境，便于 ELK 里区分来源 -->
+                <customFields>{"app":"38-production-hardening","source":"stdout"}</customFields>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="JSON"/>
+        </root>
+    </springProfile>
+</configuration>

@@ -1,0 +1,35 @@
+# ============ 生产环境 Profile：最小暴露 + 文档关闭 ============
+# 启动方式：mvn spring-boot:run -Dspring-boot.run.profiles=prod
+# 配合环境变量：DB_PASSWORD=xxx JWT_SECRET=<长随机串>
+
+spring:
+  # 【安全加固】生产禁用 swagger / api-docs，防接口信息泄露
+  # （等价于 springdoc.api-docs.enabled=false / swagger-ui.enabled=false）
+  mvc:
+    log-request-details: false
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 最小暴露原则：仅健康、信息、指标、Prometheus
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized   # 仅认证后可见健康详情
+    # loggers 在生产默认不暴露；需要排障时临时加入 exposure.include
+  server:
+    port: 9090   # 管理端口与业务端口分离（可选加固项）
+
+# 【安全加固】生产必须确认：
+# 1. spring-boot-devtools 不在 classpath（本工程未引入，保持）
+# 2. H2 控制台未启用（本工程未引入，保持）
+# 3. HTTPS 强制：Nginx/网关层 443 终结 + HSTS；
+#    若应用层终结 TLS，在 SecurityConfig 开启 requiresChannel：
+#    http.requiresChannel(channel -> channel.anyRequest().requiresSecure())

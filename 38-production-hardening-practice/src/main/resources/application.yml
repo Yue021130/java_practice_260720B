@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # 【生产加固】密码不外置默认值：生产通过环境变量注入 DB_PASSWORD，
+    # 本地开发可在启动时传 -DDB_PASSWORD=xxx 或写在 application-dev.yml
+    url: jdbc:mysql://localhost:3306/prod_db?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 【本章核心配置】密钥全部环境变量外置；dev 默认值只允许本地
+app:
+  jwt:
+    # 生产必须注入环境变量 JWT_SECRET（长随机串）；默认值仅供本地开发
+    secret: ${JWT_SECRET:dev-only-secret-key-must-be-overridden-in-prod-0123456789abcdef}
+    ttl-millis: 86400000   # 1 天
+  # 限流：每 IP 每分钟 10 个令牌（演示值，生产按接口分级配置）
+  rate-limit:
+    capacity: 10
+    refill-per-minute: 10
+
+# 混沌工程：默认关闭。仅在演练环境通过环境变量开启：
+#   CHAOS_MONKEY_ENABLED=true
+chaos:
+  monkey:
+    enabled: ${CHAOS_MONKEY_ENABLED:false}
+    assaults:
+      level: 5
+      latency-range-start: 1000
+      latency-range-end: 3000
+      exceptions-active: true
+    watcher:
+      service: true
+      repository: false
+      controller: false
+
+# Actuator（dev 全暴露方便学习；prod profile 收紧，见 application-prod.yml）
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,loggers
+  endpoint:
+    health:
+      show-details: when-authorized
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
